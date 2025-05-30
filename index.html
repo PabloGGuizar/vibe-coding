@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Coding: Transforma el Aprendizaje con IA</title>
+    <title>Vibe Coding Educativo: Transforma el Aprendizaje con IA sin Programar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
             border-radius: 0.75rem; /* rounded-xl */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
             padding: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2rem; /* Kept for spacing in case of non-slide view, but slides manage display */
         }
         .btn-primary {
             background-color: #3b82f6; /* blue-500 */
@@ -140,166 +140,243 @@
             padding-left: 1.5rem;
             text-indent: -1.5rem;
         }
+
+        /* Slide specific styles */
+        .slide {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: block; /* Shown when active */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+        .slide-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #cbd5e1; /* slate-300 */
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .slide-dot.active {
+            background-color: #3b82f6; /* blue-500 */
+        }
+        .slide-nav-btn {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .slide-nav-btn:hover {
+            background-color: #2563eb;
+        }
+        .slide-nav-btn:disabled {
+            background-color: #94a3b8; /* slate-400 */
+            cursor: not-allowed;
+        }
+
+        /* Styles for quiz elements initially hidden */
+        #quiz-container-elements {
+            display: none;
+        }
     </style>
 </head>
 <body class="antialiased">
     <header class="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-16 shadow-lg">
         <div class="container text-center">
-            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Vibe Coding: Transforma el Aprendizaje con IA</h1>
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Vibe Coding Educativo: Transforma el Aprendizaje con IA sin Programar</h1>
             <p class="text-xl md:text-2xl font-light opacity-90">Empodera a educadores y desarrolladores para crear experiencias de aprendizaje interactivas y personalizadas.</p>
         </div>
     </header>
 
     <main class="container py-12">
+        <div id="slides-container">
+            <section id="proposito-aprendizaje" class="section-card bg-blue-50 border-l-4 border-blue-500 slide">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Propósito de Aprendizaje</h2>
+                <p class="text-lg text-blue-700 leading-relaxed">
+                    Al finalizar esta experiencia, los estudiantes serán capaces de **desarrollar** aplicaciones y recursos educativos interactivos y personalizados utilizando la metodología Vibe Coding y herramientas visuales, **sin necesidad de conocimientos avanzados de programación**, para enriquecer significativamente la experiencia de aprendizaje.
+                </p>
+            </section>
 
-        <section id="proposito-aprendizaje" class="section-card bg-blue-50 border-l-4 border-blue-500">
-            <h2 class="text-3xl font-bold text-blue-800 mb-4">Propósito de Aprendizaje</h2>
-            <p class="text-lg text-blue-700 leading-relaxed">
-                Al finalizar esta experiencia, los estudiantes serán capaces de <strong>desarrollar</strong> aplicaciones y recursos educativos interactivos y personalizados utilizando la metodología Vibe Coding y herramientas visuales, <strong>sin necesidad de conocimientos avanzados de programación</strong>, para enriquecer significativamente la experiencia de aprendizaje.
-            </p>
-        </section>
+            <section id="que-es-vibe-coding" class="section-card slide">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">¿Qué es el Vibe Coding?</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    El Vibe Coding es una técnica de programación asistida por inteligencia artificial (IA) que permite generar código a partir de descripciones en lenguaje natural. Esta metodología transforma el rol del programador, pasando de escribir código manualmente a guiar, probar y refinar el código generado por la IA.
+                </p>
+                <a href="https://en.wikipedia.org/wiki/Vibe_coding" target="_blank" class="btn-primary inline-flex items-center">
+                    Más sobre Vibe Coding en Wikipedia
+                    <i class="fas fa-external-link-alt ml-2"></i>
+                </a>
+            </section>
 
-        <section id="que-es-vibe-coding" class="section-card">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">¿Qué es Vibe Coding?</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                Vibe Coding es una metodología y un conjunto de herramientas que permiten la creación de aplicaciones y recursos interactivos, especialmente en el ámbito de la inteligencia artificial, de una manera intuitiva y accesible. Se centra en la "sensación" o "vibración" del código, haciendo que el proceso de desarrollo sea más fluido y menos dependiente de conocimientos técnicos profundos, ideal para la prototipación rápida y la experimentación.
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                En esencia, Vibe Coding busca democratizar la creación tecnológica, permitiendo a usuarios con diferentes niveles de habilidad transformar sus ideas en realidad digital con mayor facilidad y creatividad.
-            </p>
-            <a href="https://en.wikipedia.org/wiki/Vibe_coding" target="_blank" class="btn-primary inline-flex items-center">
-                Más sobre Vibe Coding en Wikipedia
-                <i class="fas fa-external-link-alt ml-2"></i>
-            </a>
-        </section>
+            <section id="vibe-coding-educacion" class="section-card slide">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Relevancia para Docentes</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    Esta técnica es especialmente útil para docentes que desean incorporar herramientas digitales en sus prácticas educativas sin necesidad de conocimientos avanzados en programación. Permite crear aplicaciones educativas personalizadas de manera eficiente.
+                </p>
+                <a href="https://educacion.bilateria.org/como-crear-aplicaciones-educativas-con-inteligencia-artificial-para-integrarlas-en-tus-recursos-digitales" target="_blank" class="btn-primary inline-flex items-center">
+                    Descubre cómo crear apps educativas con IA
+                    <i class="fas fa-external-link-alt ml-2"></i>
+                </a>
+            </section>
 
-        <section id="vibe-coding-educacion" class="section-card">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Vibe Coding Aplicada a la Educación</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                En el ámbito educativo, Vibe Coding se convierte en una herramienta revolucionaria. Permite a educadores y estudiantes crear sus propios recursos didácticos interactivos, simulaciones, y aplicaciones con inteligencia artificial sin necesidad de ser expertos programadores. Esto abre un abanico de posibilidades para personalizar el aprendizaje y hacerlo más atractivo.
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Imagina crear un tutor virtual que se adapte al ritmo de cada estudiante, un simulador de laboratorio de física interactivo, o un juego de idiomas con reconocimiento de voz. Vibe Coding facilita la implementación de estas ideas, transformando el aula en un espacio de innovación y experimentación constante. El impacto es significativo: mayor motivación estudiantil, comprensión más profunda de conceptos complejos y desarrollo de habilidades del siglo XXI.
-            </p>
-            <a href="https://educacion.bilateria.org/como-crear-aplicaciones-educativas-con-inteligencia-artificial-para-integrarlas-en-tus-recursos-digitales" target="_blank" class="btn-primary inline-flex items-center">
-                Descubre cómo crear apps educativas con IA
-                <i class="fas fa-external-link-alt ml-2"></i>
-            </a>
-        </section>
+            <section id="crea-juegos-ia" class="section-card slide">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Guía Paso a Paso</h2>
+                <ol class="list-decimal list-inside text-lg text-gray-700 mb-6 space-y-2">
+                    <li><strong class="text-blue-600">Define tu objetivo educativo:</strong> Determina qué concepto o habilidad deseas enseñar.</li>
+                    <li><strong class="text-blue-600">Redacta un prompt claro:</strong> Describe en lenguaje natural la aplicación que deseas crear.</li>
+                    <li><strong class="text-blue-600">Utiliza una IA generativa:</strong> Emplea herramientas como ChatGPT o Gemini para generar el código.</li>
+                    <li><strong class="text-blue-600">Revisa y ajusta:</strong> Prueba la aplicación y realiza ajustes según sea necesario.</li>
+                    <li><strong class="text-blue-600">Publica tu recurso:</strong> Puedes alojar tu aplicación en plataformas como GitHub Pages para compartirla con tus estudiantes.</li>
+                </ol>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Observa lo fácil que es en el siguiente video:
+                </p>
+                <div class="video-container mb-8">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/XwF6r58SU1Y?si=ufu73AtWJ52rGp3b" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Con Vibe Coding, la creación de experiencias de aprendizaje interactivas y divertidas está al alcance de todos.
+                </p>
+            </section>
 
-        <section id="crea-juegos-ia" class="section-card">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Crea Juegos Educativos con IA sin Saber Programar</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                Una de las aplicaciones más emocionantes de Vibe Coding es la creación de juegos educativos. No necesitas tener experiencia en programación para empezar. El proceso es intuitivo y se basa en la lógica y la creatividad.
-            </p>
-            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Proceso Simplificado:</h3>
-            <ol class="list-decimal list-inside text-lg text-gray-700 mb-6 space-y-2">
-                <li><strong class="text-blue-600">Define tu Idea:</strong> ¿Qué quieres que el juego enseñe? ¿Qué tipo de interacción tendrá?</li>
-                <li><strong class="text-blue-600">Diseña la Lógica:</strong> Utiliza herramientas visuales para establecer reglas, condiciones y respuestas de la IA.</li>
-                <li><strong class="text-blue-600">Añade Contenido:</strong> Incorpora tus preguntas, imágenes, sonidos y elementos interactivos.</li>
-                <li><strong class="text-blue-600">Prueba y Mejora:</strong> Juega, obtén retroalimentación y ajusta para una experiencia óptima.</li>
-            </ol>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Observa lo fácil que es en el siguiente video:
-            </p>
-            <div class="video-container mb-8">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/XwF6r58SU1Y?si=ufu73AtWJ52rGp3b" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                Con Vibe Coding, la creación de experiencias de aprendizaje interactivas y divertidas está al alcance de todos.
-            </p>
-        </section>
-
-        <section class="section-card text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">¡Hora de Poner a Prueba tus Conocimientos!</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Ahora que has explorado el potencial de Vibe Coding Educativo, te invitamos a verificar tu comprensión y a seguir profundizando con nuestros recursos adicionales.
-            </p>
-            <button id="show-quiz-btn" class="btn-primary inline-flex items-center text-xl px-8 py-4">
-                Verifica tu Comprensión
-                <i class="fas fa-question-circle ml-3 text-2xl"></i>
-            </button>
-        </section>
-
-        <section id="quiz-interactivo" class="section-card hidden">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Verifica tu Comprensión: Quiz Interactivo</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                ¡Pon a prueba tus conocimientos sobre Vibe Coding Educativo con este quiz interactivo! Tienes 3 vidas.
-            </p>
-
-            <div id="quiz-container" class="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-200">
-                <div class="flex justify-between items-center mb-6">
-                    <div id="quiz-lives" class="text-red-500 text-2xl">
-                        <i class="fas fa-heart"></i>
-                        <i class="fas fa-heart"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div id="quiz-score" class="text-blue-600 font-bold text-2xl">Puntuación: 0</div>
+            <section id="quiz-interactivo-slide" class="section-card text-center slide">
+                <div id="quiz-intro-content">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">¡Hora de Reflexionar y Poner a Prueba tus Conocimientos!</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Ahora que has explorado el potencial de Vibe Coding Educativo, te invitamos a verificar tu comprensión y a seguir profundizando con nuestros recursos adicionales.
+                    </p>
+                    <button id="start-quiz-btn" class="btn-primary inline-flex items-center text-xl px-8 py-4">
+                        Comenzar Quiz
+                        <i class="fas fa-question-circle ml-3 text-2xl"></i>
+                    </button>
                 </div>
 
-                <div id="quiz-progress" class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 0%;"></div>
-                </div>
+                <div id="quiz-container-elements" class="text-left">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">Verifica tu Comprensión: Quiz Interactivo</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        ¡Pon a prueba tus conocimientos sobre Vibe Coding Educativo con este quiz interactivo! Tienes 3 vidas.
+                    </p>
 
-                <div id="quiz-question" class="text-xl font-semibold text-gray-800 mb-6"></div>
-                <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div id="quiz-container" class="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-200">
+                        <div class="flex justify-between items-center mb-6">
+                            <div id="quiz-lives" class="text-red-500 text-2xl">
+                                <i class="fas fa-heart"></i>
+                                <i class="fas fa-heart"></i>
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div id="quiz-score" class="text-blue-600 font-bold text-2xl">Puntuación: 0</div>
+                        </div>
+
+                        <div id="quiz-progress" class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 0%;"></div>
+                        </div>
+
+                        <div id="quiz-question" class="text-xl font-semibold text-gray-800 mb-6"></div>
+                        <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            </div>
+
+                        <div id="quiz-feedback" class="text-center text-lg font-semibold mt-4 mb-4" style="min-height: 2rem;"></div>
+
+                        <button id="quiz-next-btn" class="btn-primary w-full mt-4 hidden">Siguiente Pregunta</button>
+                        <button id="quiz-start-over-btn" class="btn-outline w-full mt-4 hidden">Volver a Empezar</button>
+                        <button id="quiz-continue-btn" class="btn-primary w-full mt-4 hidden">Continuar</button>
                     </div>
+                </div>
+            </section>
 
-                <div id="quiz-feedback" class="text-center text-lg font-semibold mt-4 mb-4" style="min-height: 2rem;"></div>
-
-                <button id="quiz-next-btn" class="btn-primary w-full mt-4 hidden">Siguiente Pregunta</button>
-                <button id="quiz-start-over-btn" class="btn-outline w-full mt-4 hidden">Volver a Empezar</button>
-            </div>
-        </section>
-
-        <section id="opinion-programador" class="section-card">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Vibe Coding en la Opinión de un Programador</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                ¿Qué piensan los expertos en código sobre Vibe Coding? Escucha la perspectiva de un programador sobre cómo esta metodología puede cambiar la forma en que abordamos el desarrollo y la enseñanza de la tecnología.
-            </p>
-            <div class="video-container mb-8">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/ASG0iuMHp2I?si=fGV5jxLxSsBYjmv9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                Esta visión complementa la accesibilidad de Vibe Coding, mostrando su potencial tanto para principiantes como para profesionales experimentados.
-            </p>
-        </section>
-
-        <section id="comunidad" class="section-card text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Únete a la Comunidad Vibe Coding Educativo</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                ¿Quieres aprender más, compartir tus creaciones o colaborar con otros entusiastas? Te invitamos a unirte a nuestra comunidad en Telegram, creada por Juanjo de Haro. Es el lugar perfecto para conectar, resolver dudas y explorar nuevas ideas.
-            </p>
-            <a href="https://t.me/vceduca" target="_blank" class="btn-primary inline-flex items-center text-xl px-8 py-4">
-                <i class="fab fa-telegram-plane mr-3 text-2xl"></i>
-                Únete a la Comunidad en Telegram
-            </a>
-            <p class="text-sm text-gray-500 mt-4">¡Te esperamos para transformar juntos la educación con Vibe Coding!</p>
-        </section>
-
-        <section id="referencias" class="section-card">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Referencias</h2>
-            <div class="space-y-4 text-lg text-gray-700">
-                <p class="reference-item">
-                    Coderos. (2025, marzo 20). <em>Vibe Coding: lo que debes saber</em> [Video]. YouTube. <a href="https://youtu.be/ASG0iuMHp2I" target="_blank" class="text-blue-600 hover:underline">https://youtu.be/ASG0iuMHp2I</a>
+            <section id="opinion-programador" class="section-card slide">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Vibe Coding en la Opinión de un Programador</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    ¿Qué piensan los expertos en código sobre Vibe Coding? Escucha la perspectiva de un programador sobre cómo esta metodología puede cambiar la forma en que abordamos el desarrollo y la enseñanza de la tecnología.
                 </p>
-                <p class="reference-item">
-                    de Haro, J. J. (2025, enero 26). <em>Cómo crear aplicaciones educativas con inteligencia artificial para integrarlas en tus recursos digitales</em>. Bilateria. <a href="https://educacion.bilateria.org/como-crear-aplicaciones-educativas-con-inteligencia-artificial-para-integrarlas-en-tus-recursos-digitales" target="_blank" class="text-blue-600 hover:underline">https://educacion.bilateria.org/como-crear-aplicaciones-educativas-con-inteligencia-artificial-para-integrarlas-en-tus-recursos-digitales</a>
+                <div class="video-container mb-8">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ASG0iuMHp2I?si=fGV5jxLxSsBYjmv9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Esta visión complementa la accesibilidad de Vibe Coding, mostrando su potencial tanto para principiantes como para profesionales experimentados.
                 </p>
-                <p class="reference-item">
-                    EdTrainer Tv. (2025, mayo 17). <em>Crea juegos educativos con IA sin saber programar | Vibe Coding explicado paso a paso</em> [Video]. YouTube. <a href="https://youtu.be/XwF6r58SU1Y" target="_blank" class="text-blue-600 hover:underline">https://youtu.be/XwF6r58SU1Y</a>
+            </section>
+
+            <section id="comunidad" class="section-card text-center slide">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Únete a la Comunidad Vibe Coding Educativo</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    ¿Quieres aprender más, compartir tus creaciones o colaborar con otros entusiastas? Te invitamos a unirte a nuestra comunidad en Telegram, creada por Juanjo de Haro. Es el lugar perfecto para conectar, resolver dudas y explorar nuevas ideas.
                 </p>
-                <p class="reference-item">
-                    Wikipedia contributors. (2025, 28 de mayo). <em>Vibe coding</em>. Wikipedia. <a href="https://en.wikipedia.org/wiki/Vibe_coding" target="_blank" class="text-blue-600 hover:underline">https://en.wikipedia.org/wiki/Vibe_coding</a>
+                <a href="https://t.me/vceduca" target="_blank" class="btn-primary inline-flex items-center">
+                    <i class="fab fa-telegram-plane mr-3 text-2xl"></i>
+                    Únete a la Comunidad en Telegram
+                </a>
+                <p class="text-sm text-gray-500 mt-4">¡Te esperamos para transformar juntos la educación con Vibe Coding!</p>
+            </section>
+
+            <section id="fin-recurso" class="section-card text-center slide bg-green-50 border-l-4 border-green-500">
+                <h2 class="text-4xl font-bold text-green-800 mb-6">¡Has Llegado al Final de Este Recurso! 🎉</h2>
+                <p class="text-lg text-green-700 leading-relaxed mb-6">
+                    Felicidades por completar este recorrido sobre Vibe Coding Educativo. Ahora es tu turno de poner en práctica lo aprendido y comenzar a transformar tus ideas en experiencias de aprendizaje interactivas.
                 </p>
-            </div>
-        </section>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">¿Listo para crear? Prueba con este prompt inicial:</h3>
+                <div class="bg-gray-100 p-4 rounded-lg border border-gray-200 mb-6 text-left">
+                    <p class="font-mono text-gray-800">
+                        "Crea una aplicación web sencilla para <span class="text-red-500 font-bold">[AUDIENCIA OBJETIVO, p.ej., niños de primaria, estudiantes de secundaria, adultos]</span> que les ayude a aprender <span class="text-red-500 font-bold">[CONCEPTO O HABILIDAD, p.ej., las tablas de multiplicar, vocabulario en inglés, principios de física]</span>. Debe mostrar una pregunta aleatoria y permitirles ingresar la respuesta. Si es correcta, que muestre una felicitación; si es incorrecta, que les dé una pista."
+                    </p>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Aplicaciones recomendadas para empezar:</h3>
+                <ul class="list-disc list-inside text-lg text-gray-700 mb-6 space-y-2 text-left inline-block">
+                    <li><strong class="text-blue-600">Gemini:</strong> Ideal para generar código y obtener ideas creativas.</li>
+                    <li><strong class="text-blue-600">ChatGPT:</strong> Excelente para la generación de texto y la lógica de la aplicación.</li>
+                    <li><strong class="text-blue-600">GitHub Pages:</strong> Para alojar y compartir tus aplicaciones web de forma gratuita.</li>
+                </ul>
+                <p class="text-xl font-bold text-blue-700 leading-relaxed">
+                    ¡El futuro de la educación está en tus manos! ¡A crear!
+                </p>
+            </section>
+
+            <section id="referencias" class="section-card slide">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Referencias</h2>
+                <div class="space-y-4 text-lg text-gray-700">
+                    <p class="reference-item">
+                        Coderos. (2025, marzo 20). <em>Vibe Coding: lo que debes saber</em> [Video]. YouTube. <a href="https://youtu.be/ASG0iuMHp2I" target="_blank" class="text-blue-600 hover:underline">https://youtu.be/ASG0iuMHp2I</a>
+                    </p>
+                    <p class="reference-item">
+                        de Haro, J. J. (2025, enero 26). <em>Cómo crear aplicaciones educativas con inteligencia artificial para integrarlas en tus recursos digitales</em>. Bilateria. <a href="https://educacion.bilateria.org/como-crear-aplicaciones-educativas-con-inteligencia-artificial-para-integrarlas-en-tus-recursos-digitales" target="_blank" class="text-blue-600 hover:underline">https://educacion.bilateria.org/como-crear-aplicaciones-educativas-con-inteligencia-artificial-para-integrarlas-en-tus-recursos-digitales</a>
+                    </p>
+                    <p class="reference-item">
+                        EdTrainer Tv. (2025, mayo 17). <em>Crea juegos educativos con IA sin saber programar | Vibe Coding explicado paso a paso</em> [Video]. YouTube. <a href="https://youtu.be/XwF6r58SU1Y" target="_blank" class="text-blue-600 hover:underline">https://youtu.be/XwF6r58SU1Y</a>
+                    </p>
+                    <p class="reference-item">
+                        Wikipedia contributors. (2025, 28 de mayo). <em>Vibe coding</em>. Wikipedia. <a href="https://en.wikipedia.org/wiki/Vibe_coding" target="_blank" class="text-blue-600 hover:underline">https://en.wikipedia.org/wiki/Vibe_coding</a>
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <div class="slide-controls">
+            <button id="prev-slide-btn" class="slide-nav-btn" disabled>Anterior</button>
+            <div id="slide-dots" class="flex space-x-2">
+                </div>
+            <button id="next-slide-btn" class="slide-nav-btn">Siguiente</button>
+        </div>
 
     </main>
 
     <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container">
-            <p>Recurso educativo creado por Juan Pablo Gómez Guízar con el valioso apoyo de Gemini.</p>
+            <p>© 2025 Vibe Coding Educativo. Recurso educativo creado por Juan Pablo Gómez Guízar con el valioso apoyo de Gemini.</p>
         </div>
     </footer>
 
@@ -380,20 +457,21 @@
                 correctAnswerIndex: 2
             },
             {
-                question: "¿Cuál de los siguientes es un paso simplificado en el proceso de creación de juegos con Vibe Coding?",
+                question: "¿Cuál de los siguientes pasos NO forma parte de la 'Guía Paso a Paso' para crear recursos con Vibe Coding?",
                 options: [
-                    "Aprender a depurar código en un entorno de desarrollo integrado.",
-                    "Diseñar la lógica del juego utilizando herramientas visuales.",
-                    "Compilar el código fuente en un ejecutable.",
-                    "Configurar servidores de bases de datos."
+                    "Define tu objetivo educativo.",
+                    "Redacta un prompt claro.",
+                    "Realiza la depuración manual del código generado.",
+                    "Revisa y ajusta la aplicación."
                 ],
-                correctAnswerIndex: 1
+                correctAnswerIndex: 2
             }
         ];
 
         // Quiz DOM Elements
-        const quizContainerElement = document.getElementById('quiz-interactivo'); // The section containing the quiz
-        const showQuizBtn = document.getElementById('show-quiz-btn');
+        const quizIntroContent = document.getElementById('quiz-intro-content');
+        const quizContainerElements = document.getElementById('quiz-container-elements');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
         const quizQuestion = document.getElementById('quiz-question');
         const quizOptions = document.getElementById('quiz-options');
         const quizLives = document.getElementById('quiz-lives');
@@ -402,6 +480,7 @@
         const quizFeedback = document.getElementById('quiz-feedback');
         const quizNextBtn = document.getElementById('quiz-next-btn');
         const quizStartOverBtn = document.getElementById('quiz-start-over-btn');
+        const quizContinueBtn = document.getElementById('quiz-continue-btn');
 
         // New DOM elements for feedback popup and sounds
         const feedbackPopup = document.getElementById('feedback-popup');
@@ -409,9 +488,16 @@
         const popupMessage = document.getElementById('popup-message');
         const correctSound = document.getElementById('correct-sound');
         const incorrectSound = document.getElementById('incorrect-sound');
-        const winSound = document.getElementById('win-sound'); // New win sound element
-        const loseSound = document.getElementById('lose-sound'); // New lose sound element
-        const startSound = document.getElementById('start-sound'); // New start sound element
+        const winSound = document.getElementById('win-sound');
+        const loseSound = document.getElementById('lose-sound');
+        const startSound = document.getElementById('start-sound');
+
+        // Slide elements
+        // Re-query slides after adding the new section
+        let slides = Array.from(document.querySelectorAll('#slides-container .slide'));
+        const prevSlideBtn = document.getElementById('prev-slide-btn');
+        const nextSlideBtn = document.getElementById('next-slide-btn');
+        const slideDotsContainer = document.getElementById('slide-dots');
 
         // Quiz State
         let currentQuestionIndex = 0;
@@ -419,6 +505,9 @@
         let score = 0;
         let selectedOption = null;
         let quizActive = true; // To prevent multiple clicks on options
+
+        // Slide State
+        let currentSlideIndex = 0;
 
         // Function to update the UI (lives, score, progress)
         function updateUI() {
@@ -443,12 +532,13 @@
             quizProgress.style.width = `${progressPercentage}%`;
         }
 
-        // Function to load a question
+        // Function to load a quiz question
         function loadQuestion() {
             if (currentQuestionIndex < quizQuestions.length && lives > 0) {
                 quizActive = true; // Re-enable quiz interaction
                 quizFeedback.textContent = ''; // Clear previous feedback
                 quizNextBtn.classList.add('hidden'); // Hide next button
+                quizContinueBtn.classList.add('hidden'); // Ensure continue button is hidden
 
                 const questionData = quizQuestions[currentQuestionIndex];
                 quizQuestion.textContent = questionData.question;
@@ -468,7 +558,7 @@
             }
         }
 
-        // Function to handle option selection
+        // Function to handle quiz option selection
         function selectOption(button, index) {
             if (!quizActive) return; // Prevent interaction if quiz is not active (e.g., after an answer)
 
@@ -498,14 +588,14 @@
                 popupMessage.classList.remove('text-red-600');
                 popupMessage.classList.add('text-green-600');
                 correctSound.currentTime = 0; // Rewind to start
-                correctSound.play().catch(e => console.error("Error playing correct sound:", e)); // Add catch for debugging
+                correctSound.play().catch(e => console.error("Error playing correct sound:", e));
             } else {
                 popupEmoji.textContent = '😔';
                 popupMessage.textContent = 'Incorrecto.';
                 popupMessage.classList.remove('text-green-600');
                 popupMessage.classList.add('text-red-600');
                 incorrectSound.currentTime = 0; // Rewind to start
-                incorrectSound.play().catch(e => console.error("Error playing incorrect sound:", e)); // Add catch for debugging
+                incorrectSound.play().catch(e => console.error("Error playing incorrect sound:", e));
             }
 
             setTimeout(() => {
@@ -518,7 +608,7 @@
             }, 1200); // Display for 1.2 seconds
         }
 
-        // Function to check the answer
+        // Function to check the quiz answer
         function checkAnswer(selectedIndex) {
             quizActive = false; // Disable further interaction until next question
             const questionData = quizQuestions[currentQuestionIndex];
@@ -553,7 +643,7 @@
             // selectedOption is intentionally not reset here, so the selected option stays highlighted
         }
 
-        // Function to move to the next question
+        // Function to move to the next quiz question
         function nextQuestion() {
             currentQuestionIndex++;
             if (currentQuestionIndex < quizQuestions.length && lives > 0) {
@@ -569,20 +659,23 @@
             quizOptions.innerHTML = ''; // Clear options
             quizFeedback.textContent = ''; // Clear feedback
             quizNextBtn.classList.add('hidden'); // Hide next button
-            quizStartOverBtn.classList.remove('hidden'); // Show restart button
+            quizStartOverBtn.classList.remove('hidden'); // Hide restart button initially
+            quizContinueBtn.classList.remove('hidden'); // Show continue button
 
             if (lives <= 0) {
                 quizFeedback.textContent = "¡Te has quedado sin vidas! Inténtalo de nuevo. 😢";
                 quizFeedback.classList.remove('text-green-600');
                 quizFeedback.classList.add('text-red-600');
                 loseSound.currentTime = 0; // Rewind to start
-                loseSound.play().catch(e => console.error("Error playing lose sound:", e)); // Add catch for debugging
+                loseSound.play().catch(e => console.error("Error playing lose sound:", e));
+                quizStartOverBtn.classList.remove('hidden'); // Show restart if lost
+                quizContinueBtn.classList.add('hidden'); // Hide continue if lost
             } else {
                 quizFeedback.textContent = "¡Felicidades por completar el quiz! 🥳";
                 quizFeedback.classList.remove('text-red-600');
                 quizFeedback.classList.add('text-green-600');
                 winSound.currentTime = 0; // Rewind to start
-                winSound.play().catch(e => console.error("Error playing win sound:", e)); // Add catch for debugging
+                winSound.play().catch(e => console.error("Error playing win sound:", e));
             }
         }
 
@@ -594,31 +687,101 @@
             selectedOption = null;
             quizActive = true;
             quizStartOverBtn.classList.add('hidden');
+            quizContinueBtn.classList.add('hidden'); // Hide continue button on reset
             loadQuestion();
         }
 
-        // Event Listeners
-        quizNextBtn.addEventListener('click', nextQuestion);
-        quizStartOverBtn.addEventListener('click', resetQuiz);
+        // --- Slide Navigation Functions ---
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            currentSlideIndex = index;
+            updateSlideControls();
+            updateDots();
+            // Scroll to top of the new slide for better UX
+            slides[currentSlideIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-        // Event listener for the "Verifica tu comprensión" button
-        showQuizBtn.addEventListener('click', () => {
-            quizContainerElement.classList.remove('hidden'); // Show the quiz section
-            showQuizBtn.classList.add('hidden'); // Hide the button itself once clicked
+        function updateSlideControls() {
+            prevSlideBtn.disabled = currentSlideIndex === 0;
+            nextSlideBtn.disabled = currentSlideIndex === slides.length - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                showSlide(currentSlideIndex + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                showSlide(currentSlideIndex - 1);
+            }
+        }
+
+        function createDots() {
+            slideDotsContainer.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.classList.add('slide-dot');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => showSlide(i));
+                slideDotsContainer.appendChild(dot);
+            });
+        }
+
+        function updateDots() {
+            Array.from(slideDotsContainer.children).forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === currentSlideIndex) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // --- Event Listeners ---
+        prevSlideBtn.addEventListener('click', prevSlide);
+        nextSlideBtn.addEventListener('click', nextSlide);
+
+        // Event listener for the "Comenzar Quiz" button
+        startQuizBtn.addEventListener('click', () => {
+            quizIntroContent.style.display = 'none'; // Hide intro text
+            quizContainerElements.style.display = 'block'; // Show quiz elements
             resetQuiz(); // Initialize or reset the quiz
-            startSound.currentTime = 0; // Rewind to start
-            startSound.play().catch(e => console.error("Error playing start sound:", e)); // Add catch for debugging
-            // Scroll to the quiz section for better UX
-            quizContainerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            startSound.currentTime = 0;
+            startSound.play().catch(e => console.error("Error playing start sound:", e));
         });
 
-        // Initial setup: Explicitly load audio elements when the DOM is ready
+        // Quiz internal navigation
+        quizNextBtn.addEventListener('click', nextQuestion);
+        quizStartOverBtn.addEventListener('click', resetQuiz);
+        // When quiz finishes and user clicks continue, move to the next main slide
+        quizContinueBtn.addEventListener('click', () => {
+            quizIntroContent.style.display = 'block'; // Show intro text for next time
+            quizContainerElements.style.display = 'none'; // Hide quiz elements
+            nextSlide();
+        });
+
+
+        // Initial setup
         document.addEventListener('DOMContentLoaded', () => {
+            // Load audio elements
             correctSound.load();
             incorrectSound.load();
             winSound.load();
             loseSound.load();
             startSound.load();
+
+            // Re-query slides to include the newly added section
+            slides = Array.from(document.querySelectorAll('#slides-container .slide'));
+
+            // Set up slides
+            createDots();
+            showSlide(0); // Show the first slide initially
         });
     </script>
 </body>
