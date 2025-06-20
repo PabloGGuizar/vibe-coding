@@ -16,135 +16,154 @@
     .quiz-option-btn.selected { border-color: #3b82f6; background-color: #bfdbfe; }
     .quiz-option-btn.correct { background-color: #d1fae5; border-color: #10b981; color: #065f46; }
     .quiz-option-btn.incorrect { background-color: #fee2e2; border-color: #ef4444; color: #991b1b; }
+    #popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white;
+      border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 50; text-align: center; }
+    #overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 40; }
   </style>
 </head>
 <body class="p-6">
-  <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
-    <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">🧠 Quiz: Vibe Coding Educativo</h1>
-    <div id="quiz">
-      <div class="mb-4 text-xl font-semibold" id="question"></div>
-      <div id="options" class="grid gap-4 mb-4"></div>
-      <div id="feedback" class="h-6 text-lg font-medium mb-4"></div>
-      <div class="flex gap-4 justify-end">
-        <button id="nextBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hidden">Siguiente</button>
-        <button id="restartBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg hidden">Reiniciar</button>
-      </div>
+  <div id="overlay"></div>
+  <div id="popup">
+    <p id="popup-message" class="text-2xl font-bold mb-4"></p>
+    <button onclick="hidePopup()" class="bg-blue-600 text-white px-4 py-2 rounded">Cerrar</button>
+  </div>
+
+  <div id="start-screen" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-md text-center">
+    <h1 class="text-3xl font-bold text-blue-700 mb-4">Quiz Vibe Coding Educativo</h1>
+    <p class="mb-4 text-lg text-gray-700">Ingresa tu nombre para comenzar y pon a prueba tus conocimientos. ¡Tienes 3 vidas!</p>
+    <input id="username" type="text" placeholder="Tu nombre" class="border border-gray-300 p-2 rounded w-full mb-4"/>
+    <button onclick="startQuiz()" class="bg-blue-600 text-white px-6 py-2 rounded">Comenzar</button>
+  </div>
+
+  <div id="quiz-container" class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md hidden">
+    <div class="flex justify-between mb-4">
+      <div id="lives" class="text-red-500 text-xl"></div>
+      <div id="score" class="text-blue-700 font-bold">Puntuación: 0</div>
+    </div>
+    <div class="text-xl font-semibold mb-4" id="question"></div>
+    <div id="options" class="grid gap-4 mb-4"></div>
+    <div id="feedback" class="h-6 text-lg font-medium mb-4"></div>
+    <div class="flex gap-4 justify-end">
+      <button id="nextBtn" onclick="nextQuestion()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hidden">Siguiente</button>
+      <button id="restartBtn" onclick="restartQuiz()" class="bg-gray-600 text-white px-4 py-2 rounded-lg hidden">Reiniciar</button>
     </div>
   </div>
+
+  <audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+  <audio id="incorrectSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+  <audio id="winSound" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
 
   <script>
     const quizData = [
       {
-        question: "¿Cuál es el objetivo principal de Vibe Coding, según la definición?",
-        options: [
-          "Crear aplicaciones completas para grandes empresas.",
-          "Democratizar la creación tecnológica, haciéndola intuitiva y accesible.",
-          "Programar en lenguajes de bajo nivel para hardware.",
-          "Diseñar interfaces de usuario exclusivamente para móviles."
-        ],
+        question: "¿Cuál es el objetivo principal de Vibe Coding?",
+        options: ["Crear apps empresariales", "Democratizar la creación tecnológica", "Programar hardware", "Diseñar para móviles"],
         correct: 1
       },
       {
-        question: "¿Qué tipo de recursos educativos se pueden crear con Vibe Coding?",
-        options: [
-          "Solo documentos de texto estáticos.",
-          "Simulaciones interactivas, tutores virtuales y juegos con IA.",
-          "Únicamente presentaciones de diapositivas.",
-          "Software de contabilidad empresarial."
-        ],
+        question: "¿Qué recursos educativos puedes crear con Vibe Coding?",
+        options: ["Documentos estáticos", "Apps interactivas con IA", "Presentaciones", "Software contable"],
         correct: 1
       },
       {
-        question: "¿Es necesario saber programar para crear juegos con Vibe Coding?",
-        options: [
-          "Sí, se necesita saber varios lenguajes.",
-          "No, es accesible sin experiencia previa.",
-          "Solo si incluye inteligencia artificial.",
-          "Solo si se publica en tiendas de apps."
-        ],
+        question: "¿Necesitas saber programar para usar Vibe Coding?",
+        options: ["Sí, varios lenguajes", "No, es accesible sin experiencia", "Solo si usas IA", "Solo si publicas en tiendas"],
         correct: 1
       },
       {
-        question: "¿Qué beneficio aporta Vibe Coding a la educación?",
-        options: [
-          "Reduce la necesidad de profesores.",
-          "Aumenta la burocracia.",
-          "Personaliza el aprendizaje y lo hace más motivador.",
-          "Limita la creatividad del estudiante."
-        ],
+        question: "¿Qué beneficio ofrece Vibe Coding en educación?",
+        options: ["Menos profesores", "Más burocracia", "Aprendizaje personalizado", "Menos creatividad"],
         correct: 2
       },
       {
-        question: "¿Cuál de los siguientes pasos NO está en la guía para crear recursos con Vibe Coding?",
-        options: [
-          "Define tu objetivo educativo.",
-          "Redacta un prompt claro.",
-          "Depura manualmente el código generado.",
-          "Revisa y ajusta la aplicación."
-        ],
+        question: "¿Qué paso NO está en la guía de Vibe Coding?",
+        options: ["Define objetivo", "Redacta prompt", "Depuración manual", "Revisión y ajustes"],
         correct: 2
       }
     ];
 
-    let current = 0;
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const feedbackEl = document.getElementById("feedback");
-    const nextBtn = document.getElementById("nextBtn");
-    const restartBtn = document.getElementById("restartBtn");
+    let current = 0, score = 0, lives = 3, username = "";
+
+    function startQuiz() {
+      username = document.getElementById("username").value.trim();
+      if (!username) return alert("Por favor ingresa tu nombre.");
+      document.getElementById("start-screen").classList.add("hidden");
+      document.getElementById("quiz-container").classList.remove("hidden");
+      loadQuestion();
+    }
 
     function loadQuestion() {
       const q = quizData[current];
-      questionEl.textContent = q.question;
-      optionsEl.innerHTML = "";
-      feedbackEl.textContent = "";
-      q.options.forEach((text, idx) => {
+      document.getElementById("question").textContent = q.question;
+      const opts = document.getElementById("options");
+      opts.innerHTML = "";
+      document.getElementById("feedback").textContent = "";
+      q.options.forEach((text, i) => {
         const btn = document.createElement("button");
         btn.textContent = text;
         btn.className = "quiz-option-btn";
-        btn.onclick = () => selectOption(btn, idx);
-        optionsEl.appendChild(btn);
+        btn.onclick = () => selectOption(btn, i);
+        opts.appendChild(btn);
       });
+      document.getElementById("lives").innerHTML = "❤️".repeat(lives);
+      document.getElementById("score").textContent = `Puntuación: ${score}`;
+      document.getElementById("nextBtn").classList.add("hidden");
     }
 
     function selectOption(button, index) {
       const correct = quizData[current].correct;
-      Array.from(optionsEl.children).forEach(btn => {
-        btn.disabled = true;
-        btn.classList.remove("selected", "correct", "incorrect");
-      });
-      button.classList.add(index === correct ? "correct" : "incorrect");
+      const buttons = document.querySelectorAll(".quiz-option-btn");
+      buttons.forEach(btn => btn.disabled = true);
       if (index === correct) {
-        feedbackEl.textContent = "🎉 ¡Muy bien! Tu respuesta es correcta.";
-        feedbackEl.className = "text-green-600";
+        button.classList.add("correct");
+        score += 10;
+        showPopup(`¡Correcto, ${username}! 🎉`, true);
+        document.getElementById("correctSound").play();
       } else {
-        feedbackEl.textContent = "❌ No es la respuesta correcta. ¡Inténtalo de nuevo!";
-        feedbackEl.className = "text-red-600";
+        button.classList.add("incorrect");
+        lives--;
+        showPopup(`Lo siento, ${username}. Esa no es la respuesta correcta.`, false);
+        document.getElementById("incorrectSound").play();
       }
-      nextBtn.classList.remove("hidden");
+      document.getElementById("nextBtn").classList.remove("hidden");
+      document.getElementById("lives").innerHTML = "❤️".repeat(lives);
     }
 
-    nextBtn.onclick = () => {
+    function nextQuestion() {
       current++;
-      if (current < quizData.length) {
-        nextBtn.classList.add("hidden");
-        loadQuestion();
+      if (lives <= 0 || current >= quizData.length) {
+        finishQuiz();
       } else {
-        questionEl.textContent = "🎉 ¡Has completado el quiz!";
-        optionsEl.innerHTML = "";
-        feedbackEl.textContent = "¡Felicidades por llegar al final!";
-        nextBtn.classList.add("hidden");
-        restartBtn.classList.remove("hidden");
+        loadQuestion();
       }
-    };
+    }
 
-    restartBtn.onclick = () => {
-      current = 0;
-      restartBtn.classList.add("hidden");
+    function finishQuiz() {
+      const container = document.getElementById("quiz-container");
+      container.innerHTML = `<h2 class='text-3xl font-bold text-center text-green-700 mb-4'>¡Quiz terminado, ${username}!</h2>
+        <p class='text-center text-lg mb-6'>Tu puntuación final fue de <strong>${score} / ${quizData.length * 10}</strong>.</p>
+        <p class='text-center text-xl'>${lives > 0 ? '¡Felicidades, aprobaste!' : 'No aprobaste esta vez. ¡Sigue practicando!'}</p>
+        <div class='text-center mt-6'><button onclick='location.reload()' class='bg-blue-600 text-white px-6 py-3 rounded'>Volver a Intentar</button></div>`;
+      if (lives > 0) document.getElementById("winSound").play();
+    }
+
+    function restartQuiz() {
+      current = 0; score = 0; lives = 3;
+      document.getElementById("restartBtn").classList.add("hidden");
       loadQuestion();
-    };
+    }
 
-    loadQuestion();
+    function showPopup(message, success) {
+      const popup = document.getElementById("popup");
+      document.getElementById("overlay").style.display = "block";
+      popup.style.display = "block";
+      document.getElementById("popup-message").textContent = message;
+    }
+
+    function hidePopup() {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    }
   </script>
 </body>
 </html>
